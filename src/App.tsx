@@ -7,14 +7,23 @@ import system from './theme';
 function App() {
     return (
         <ChakraProvider value={system}>
-            <Grid templateColumns="200px repeat(2, 1fr)" gap={4}>
-                <GridItem colSpan={3} background={'blue.100'}>
+            <Grid
+                templateAreas={{
+                    base: `"nav" "main"`,
+                    lg: `"nav nav" "aside main"`,
+                }}
+                templateColumns={{
+                    base: '1fr',
+                    lg: '250px 1fr',
+                }}
+            >
+                <GridItem area="nav" background={'blue.100'}>
                     <Navbar />
                 </GridItem>
                 <GridItem background={'blue.500'}>
                     <Text>sidebar</Text>
                 </GridItem>
-                <GridItem background={'blue.1900'}>
+                <GridItem background={'blue.900'}>
                     <Text>main</Text>
                 </GridItem>
             </Grid>
