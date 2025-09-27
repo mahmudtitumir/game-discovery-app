@@ -3,6 +3,7 @@ import { ChakraProvider } from '@chakra-ui/react';
 import './App.css';
 import Navbar from './components/Navbar';
 import system from './theme';
+import GameGrid from './components/GameGrid';
 
 function App() {
     return (
@@ -20,11 +21,11 @@ function App() {
                 <GridItem area="nav" background={'blue.100'}>
                     <Navbar />
                 </GridItem>
-                <GridItem background={'blue.500'}>
-                    <Text>sidebar</Text>
+                <GridItem area="aside">
+                    <Text>aside</Text>
                 </GridItem>
-                <GridItem background={'blue.900'}>
-                    <Text>main</Text>
+                <GridItem area="main">
+                    <GameGrid />
                 </GridItem>
             </Grid>
         </ChakraProvider>
