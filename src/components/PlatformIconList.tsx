@@ -12,7 +12,7 @@ import {
     FaAndroid,
 } from 'react-icons/fa';
 
-import type { Platform } from '../hooks/useUsers';
+import type { Platform } from '../hooks/useGames';
 
 interface Props {
     platforms: Platform[];

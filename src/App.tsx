@@ -1,17 +1,24 @@
+import { useState } from 'react';
 import { Grid, GridItem } from '@chakra-ui/react';
 import { ChakraProvider } from '@chakra-ui/react';
+
 import './App.css';
-import Navbar from './components/Navbar';
 import system from './theme';
+import Navbar from './components/Navbar';
 import GameGrid from './components/GameGrid';
 import GenreList from './components/GenreList';
 
+import type { Genre } from './hooks/useGenres';
+import PlatformSelector from './components/PlatformSelector';
+
 function App() {
+    const [selectedGenre, setSelectedGenre] = useState<Genre | null>(null);
+
     return (
         <ChakraProvider value={system}>
             <Grid
                 templateAreas={{
-                    base: `"nav" "main"`,
+                    // base: `"nav" "main"`,
                     lg: `"nav nav" "aside main"`,
                 }}
                 templateColumns={{
@@ -22,10 +29,14 @@ function App() {
                     <Navbar />
                 </GridItem>
                 <GridItem area="aside" paddingX={5}>
-                    <GenreList />
+                    <GenreList
+                        selectedGenre={selectedGenre}
+                        onSeletedGenre={genre => setSelectedGenre(genre)}
+                    />
                 </GridItem>
                 <GridItem area="main">
-                    <GameGrid />
+                    <PlatformSelector />
+                    <GameGrid selectedGenre={selectedGenre} />
                 </GridItem>
             </Grid>
         </ChakraProvider>
