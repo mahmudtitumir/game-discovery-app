@@ -10,9 +10,16 @@ import GenreList from './components/GenreList';
 
 import type { Genre } from './hooks/useGenres';
 import PlatformSelector from './components/PlatformSelector';
+import type { Platform } from './hooks/useGames';
+
+export interface GameQuery {
+    genre: Genre | null;
+    platform: Platform | null;
+    sortOrder: string;
+}
 
 function App() {
-    const [selectedGenre, setSelectedGenre] = useState<Genre | null>(null);
+    const [gameQuery, setGameQuery] = useState<GameQuery>({} as GameQuery);
 
     return (
         <ChakraProvider value={system}>
@@ -30,13 +37,20 @@ function App() {
                 </GridItem>
                 <GridItem area="aside" paddingX={5}>
                     <GenreList
-                        selectedGenre={selectedGenre}
-                        onSeletedGenre={genre => setSelectedGenre(genre)}
+                        selectedGenre={gameQuery.genre}
+                        onSeletedGenre={genre =>
+                            setGameQuery({ ...gameQuery, genre })
+                        }
                     />
                 </GridItem>
                 <GridItem area="main">
-                    <PlatformSelector />
-                    <GameGrid selectedGenre={selectedGenre} />
+                    <PlatformSelector
+                        selectedPlatform={gameQuery.platform}
+                        onSelectPlatform={platform =>
+                            setGameQuery({ ...gameQuery, platform })
+                        }
+                    />
+                    <GameGrid gameQuery={gameQuery} />
                 </GridItem>
             </Grid>
         </ChakraProvider>
