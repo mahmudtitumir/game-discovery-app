@@ -1,29 +1,27 @@
-import { useState } from 'react';
 import {
     Box,
+    ChakraProvider,
     Flex,
     Grid,
     GridItem,
     Show,
     useBreakpointValue,
 } from '@chakra-ui/react';
-import { ChakraProvider } from '@chakra-ui/react';
+import { useState } from 'react';
 
 import './App.css';
-import system from './theme';
-import Navbar from './components/Navbar';
 import GameGrid from './components/GameGrid';
 import GenreList from './components/GenreList';
+import Navbar from './components/Navbar';
+import system from './theme';
 
-import type { Genre } from './hooks/useGenres';
-import PlatformSelector from './components/PlatformSelector';
-import type { Platform } from './hooks/usePlatforms';
-import SortSelector from './components/SortSelector';
 import GameHeading from './components/GameHeading';
+import PlatformSelector from './components/PlatformSelector';
+import SortSelector from './components/SortSelector';
 
 export interface GameQuery {
-    genre: Genre | null;
-    platform: Platform | null;
+    genreId?: number;
+    platformId?: number;
     sortOrder: string;
     searchText: string;
     pageSize: 20;
@@ -54,9 +52,12 @@ function App() {
                 <Show when={showAside}>
                     <GridItem area="aside" paddingX={5}>
                         <GenreList
-                            selectedGenre={gameQuery.genre}
+                            selectedGenreId={gameQuery.genreId}
                             onSeletedGenre={genre =>
-                                setGameQuery({ ...gameQuery, genre })
+                                setGameQuery({
+                                    ...gameQuery,
+                                    genreId: genre.id,
+                                })
                             }
                         />
                     </GridItem>
@@ -67,9 +68,12 @@ function App() {
                         <Flex marginBottom={5}>
                             <Box marginRight={5}>
                                 <PlatformSelector
-                                    selectedPlatform={gameQuery.platform}
+                                    selectedPlatformId={gameQuery.platformId}
                                     onSelectPlatform={platform =>
-                                        setGameQuery({ ...gameQuery, platform })
+                                        setGameQuery({
+                                            ...gameQuery,
+                                            platformId: platform.id,
+                                        })
                                     }
                                 />
                             </Box>
