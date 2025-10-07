@@ -2,7 +2,7 @@ import { Menu, Portal } from '@ark-ui/react';
 import usePlatforms from '../hooks/usePlatforms';
 import { Box, Button } from '@chakra-ui/react';
 import { BsChevronDown } from 'react-icons/bs';
-import type { Platform } from '../hooks/useGames';
+import type { Platform } from '../hooks/usePlatforms';
 
 interface Props {
     onSelectPlatform: (platform: Platform) => void;
