@@ -1,4 +1,4 @@
-import { Menu, Box } from '@chakra-ui/react';
+import { Menu, Button, Portal } from '@chakra-ui/react';
 import { BsChevronDown } from 'react-icons/bs';
 
 interface Props {
@@ -21,35 +21,26 @@ const SortSelector = ({ onSortOrder, sortOrder }: Props) => {
     return (
         <Menu.Root>
             <Menu.Trigger asChild>
-                <Box
-                    as="button"
-                    display="inline-flex"
-                    alignItems="center"
-                    justifyContent="space-between"
-                    px={4}
-                    py={2}
-                    border="1px solid"
-                    borderColor="gray.200"
-                    borderRadius="md"
-                    cursor="pointer"
-                    _hover={{ bg: 'gray.200' }}
-                    _focus={{ outline: '2px solid', outlineColor: 'blue.500' }}
-                >
+                <Button variant="outline" size="lg">
                     Order by: {currentSortOrder?.label || 'Relevance'}
                     <BsChevronDown style={{ marginLeft: '8px' }} />
-                </Box>
+                </Button>
             </Menu.Trigger>
-            <Menu.Content>
-                {sortOrders.map(orderItem => (
-                    <Menu.Item
-                        key={orderItem.value}
-                        value={orderItem.value}
-                        onClick={() => onSortOrder(orderItem.value)}
-                    >
-                        {orderItem.label}
-                    </Menu.Item>
-                ))}
-            </Menu.Content>
+            <Portal>
+                <Menu.Positioner>
+                    <Menu.Content>
+                        {sortOrders.map(orderItem => (
+                            <Menu.Item
+                                key={orderItem.value}
+                                value={orderItem.value}
+                                onClick={() => onSortOrder(orderItem.value)}
+                            >
+                                {orderItem.label}
+                            </Menu.Item>
+                        ))}
+                    </Menu.Content>
+                </Menu.Positioner>
+            </Portal>
         </Menu.Root>
     );
 };

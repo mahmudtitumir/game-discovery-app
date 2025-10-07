@@ -24,7 +24,7 @@ const GenreList = ({ onSeletedGenre, selectedGenre }: Props) => {
         <>
             <Heading>Genres</Heading>
             <List.Root listStyle="none">
-                {data.map(genre => (
+                {data?.results.map(genre => (
                     <List.Item key={genre.id} paddingY="5px">
                         <HStack>
                             <Image
@@ -38,6 +38,7 @@ const GenreList = ({ onSeletedGenre, selectedGenre }: Props) => {
                                 textAlign="left"
                                 whiteSpace="nowrap"
                                 onClick={() => onSeletedGenre(genre)}
+                                _hover={{ textDecoration: 'underline' }}
                                 textDecoration={
                                     selectedGenre?.id === genre.id
                                         ? 'underline'

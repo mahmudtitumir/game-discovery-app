@@ -1,6 +1,6 @@
-import { Menu } from '@ark-ui/react';
+import { Menu, Portal } from '@ark-ui/react';
 import usePlatforms from '../hooks/usePlatforms';
-import { Box } from '@chakra-ui/react';
+import { Box, Button } from '@chakra-ui/react';
 import { BsChevronDown } from 'react-icons/bs';
 import type { Platform } from '../hooks/useGames';
 
@@ -15,35 +15,32 @@ const PlatformSelector = ({ onSelectPlatform, selectedPlatform }: Props) => {
     return (
         <Menu.Root>
             <Menu.Trigger asChild>
-                <Box
-                    as="button"
-                    display="inline-flex"
-                    alignItems="center"
-                    justifyContent="space-between"
-                    px={4}
-                    py={2}
-                    border="1px solid"
-                    borderColor="gray.200"
-                    borderRadius="md"
-                    cursor="pointer"
-                    _hover={{ bg: 'gray.200' }}
-                    _focus={{ outline: '2px solid', outlineColor: 'blue.500' }}
-                >
+                <Button variant="outline" size="lg">
                     {selectedPlatform?.name || 'Platforms'}
                     <BsChevronDown style={{ marginLeft: '8px' }} />
-                </Box>
+                </Button>
             </Menu.Trigger>
-            <Menu.Content>
-                {data.map(item => (
-                    <Menu.Item
-                        key={item.id}
-                        value={item.slug}
-                        onClick={() => onSelectPlatform(item)}
-                    >
-                        {item.name}
-                    </Menu.Item>
-                ))}
-            </Menu.Content>
+            <Portal>
+                <Menu.Positioner>
+                    <Menu.Content>
+                        {data?.results.map(item => (
+                            <Menu.Item
+                                key={item.id}
+                                value={item.slug}
+                                onClick={() => onSelectPlatform(item)}
+                            >
+                                <Box
+                                    p="2"
+                                    color="whiteAlpha.800"
+                                    backgroundColor="blackAlpha.800"
+                                >
+                                    {item.name}
+                                </Box>
+                            </Menu.Item>
+                        ))}
+                    </Menu.Content>
+                </Menu.Positioner>
+            </Portal>
         </Menu.Root>
     );
 };
