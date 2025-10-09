@@ -2,15 +2,12 @@ import { Menu, Portal } from '@ark-ui/react';
 import usePlatforms from '../hooks/usePlatforms';
 import { Box, Button } from '@chakra-ui/react';
 import { BsChevronDown } from 'react-icons/bs';
-import type { Platform } from '../hooks/usePlatforms';
 import usePlatform from '../hooks/usePlatform';
+import useGameQueryStore from '../store';
 
-interface Props {
-    onSelectPlatform: (platform: Platform) => void;
-    selectedPlatformId?: number;
-}
-
-const PlatformSelector = ({ onSelectPlatform, selectedPlatformId }: Props) => {
+const PlatformSelector = () => {
+    const setPlaformId = useGameQueryStore(s => s.setPlaformId);
+    const selectedPlatformId = useGameQueryStore(s => s.gameQuery.platformId);
     const { data, error } = usePlatforms();
     const platform = usePlatform(selectedPlatformId);
     if (error) return null;
@@ -29,7 +26,7 @@ const PlatformSelector = ({ onSelectPlatform, selectedPlatformId }: Props) => {
                             <Menu.Item
                                 key={item.id}
                                 value={item.slug}
-                                onClick={() => onSelectPlatform(item)}
+                                onClick={() => setPlaformId(item.id)}
                             >
                                 <Box
                                     p="2"

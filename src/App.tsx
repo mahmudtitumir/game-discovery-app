@@ -7,28 +7,17 @@ import {
     Show,
     useBreakpointValue,
 } from '@chakra-ui/react';
-import { useState } from 'react';
 
 import './App.css';
 import GameGrid from './components/GameGrid';
 import GenreList from './components/GenreList';
 import Navbar from './components/Navbar';
 import system from './theme';
-
 import GameHeading from './components/GameHeading';
 import PlatformSelector from './components/PlatformSelector';
 import SortSelector from './components/SortSelector';
 
-export interface GameQuery {
-    genreId?: number;
-    platformId?: number;
-    sortOrder: string;
-    searchText: string;
-    pageSize: 20;
-}
-
 function App() {
-    const [gameQuery, setGameQuery] = useState<GameQuery>({} as GameQuery);
     const showAside = useBreakpointValue({ base: false, lg: true });
     return (
         <ChakraProvider value={system}>
@@ -43,49 +32,24 @@ function App() {
                 }}
             >
                 <GridItem area="nav">
-                    <Navbar
-                        onSearch={searchText =>
-                            setGameQuery({ ...gameQuery, searchText })
-                        }
-                    />
+                    <Navbar />
                 </GridItem>
                 <Show when={showAside}>
                     <GridItem area="aside" paddingX={5}>
-                        <GenreList
-                            selectedGenreId={gameQuery.genreId}
-                            onSeletedGenre={genre =>
-                                setGameQuery({
-                                    ...gameQuery,
-                                    genreId: genre.id,
-                                })
-                            }
-                        />
+                        <GenreList />
                     </GridItem>
                 </Show>
                 <GridItem area="main">
                     <Box paddingLeft={2}>
-                        <GameHeading gameQuery={gameQuery} />
+                        <GameHeading />
                         <Flex marginBottom={5}>
                             <Box marginRight={5}>
-                                <PlatformSelector
-                                    selectedPlatformId={gameQuery.platformId}
-                                    onSelectPlatform={platform =>
-                                        setGameQuery({
-                                            ...gameQuery,
-                                            platformId: platform.id,
-                                        })
-                                    }
-                                />
+                                <PlatformSelector />
                             </Box>
-                            <SortSelector
-                                sortOrder={gameQuery.sortOrder}
-                                onSortOrder={sortOrder =>
-                                    setGameQuery({ ...gameQuery, sortOrder })
-                                }
-                            />
+                            <SortSelector />
                         </Flex>
                     </Box>
-                    <GameGrid gameQuery={gameQuery} />
+                    <GameGrid />
                 </GridItem>
             </Grid>
         </ChakraProvider>
