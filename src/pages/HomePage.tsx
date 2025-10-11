@@ -1,24 +1,22 @@
 import {
-    Box,
     ChakraProvider,
-    Flex,
     Grid,
     GridItem,
     Show,
+    Box,
+    Flex,
     useBreakpointValue,
 } from '@chakra-ui/react';
+import { system } from '@chakra-ui/react/preset';
+import GameGrid from '../components/GameGrid';
+import GameHeading from '../components/GameHeading';
+import GenreList from '../components/GenreList';
+import PlatformSelector from '../components/PlatformSelector';
+import SortSelector from '../components/SortSelector';
 
-import './App.css';
-import GameGrid from './components/GameGrid';
-import GenreList from './components/GenreList';
-import Navbar from './components/Navbar';
-import system from './theme';
-import GameHeading from './components/GameHeading';
-import PlatformSelector from './components/PlatformSelector';
-import SortSelector from './components/SortSelector';
-
-function App() {
+const HomePage = () => {
     const showAside = useBreakpointValue({ base: false, lg: true });
+
     return (
         <ChakraProvider value={system}>
             <Grid
@@ -31,9 +29,6 @@ function App() {
                     lg: '250px 1fr',
                 }}
             >
-                <GridItem area="nav">
-                    <Navbar />
-                </GridItem>
                 <Show when={showAside}>
                     <GridItem area="aside" paddingX={5}>
                         <GenreList />
@@ -54,6 +49,6 @@ function App() {
             </Grid>
         </ChakraProvider>
     );
-}
+};
 
-export default App;
+export default HomePage;
