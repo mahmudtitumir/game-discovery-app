@@ -1,7 +1,8 @@
-import { Box, Heading, Spinner, Text } from '@chakra-ui/react';
-import parse from 'html-react-parser';
+import { Box, Heading, Spinner } from '@chakra-ui/react';
 import { useParams } from 'react-router-dom';
 
+import ExpendableText from '../components/ExpendableText';
+import GameAttributes from '../components/GameAttributes';
 import useGame from '../hooks/useGame';
 
 const GameDetailPage = () => {
@@ -12,7 +13,8 @@ const GameDetailPage = () => {
     return (
         <Box>
             <Heading>{game.name}</Heading>
-            <Text>{parse(game.description)}</Text>
+            <ExpendableText>{game.description_raw}</ExpendableText>
+            <GameAttributes game={game} />
         </Box>
     );
 };
